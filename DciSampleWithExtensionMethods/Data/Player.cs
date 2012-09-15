@@ -1,7 +1,7 @@
-﻿using DciSampleWithExtensionMethods.Interactions.Roles;
-
-namespace DciSampleWithExtensionMethods.Data
+﻿namespace DciSampleWithExtensionMethods.Data
 {
+    using DciSampleWithExtensionMethods.Interactions.Roles;
+
     class Player : AttackerRole, DefenderRole
     {
         public string Name { get; set; }
