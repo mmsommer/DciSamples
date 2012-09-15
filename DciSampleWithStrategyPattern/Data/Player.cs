@@ -1,17 +1,17 @@
 ﻿using DciSampleWithStrategyPattern.Interactions.Roles;
 using DciSampleWithStrategyPattern.Interactions.Traits;
+using System;
+using System.Collections.Generic;
 
 namespace DciSampleWithStrategyPattern.Data
 {
-    class Player : AttackerRole, DefenderRole
+    class Player : PlayerRole
     {
-        private AttackerTraits attackerTraits;
-        private DefenderTraits defenderTraits;
+        private Dictionary<string, TraitOf<PlayerRole>> traits;
 
-        public Player(AttackerTraits attackerTraits = null, DefenderTraits defenderTraits = null)
+        public Player()
         {
-            AttackerTraits = attackerTraits ?? new AttackerTraits();
-            DefenderTraits = defenderTraits ?? new DefenderTraits();
+            traits = new Dictionary<string, TraitOf<PlayerRole>>();
         }
 
         public string Name { get; set; }
@@ -23,16 +23,32 @@ namespace DciSampleWithStrategyPattern.Data
             get { return Hitpoints <= 0; }
         }
 
-        public AttackerTraits AttackerTraits
+        public void AddTrait(TraitOf<PlayerRole> trait)
         {
-            get { return attackerTraits; }
-            set { attackerTraits = value; }
+            var traitName = trait.GetType().Name;
+
+            trait.Role = this;
+
+            if (!traits.ContainsKey(traitName))
+            {
+                traits.Add(traitName, trait);
+            }
+            else
+            {
+                traits[traitName] = trait;
+            }
         }
 
-        public DefenderTraits DefenderTraits
+        public U Get<U>() where U : TraitOf<PlayerRole>
         {
-            get { return defenderTraits; }
-            set { defenderTraits = value; }
+            var traitName = typeof(U).Name;
+
+            if (!traits.ContainsKey(traitName))
+            {
+                throw new ArgumentOutOfRangeException("This object doesn't have a trait named '" + traitName + "'");
+            }
+
+            return traits[traitName] as U;
         }
     }
 }

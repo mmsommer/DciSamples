@@ -1,12 +1,15 @@
-﻿
+﻿using DciSampleWithStrategyPattern.Interactions.Roles;
+
 namespace DciSampleWithStrategyPattern.Interactions.Traits
 {
-    class DefenderTraits
+    class DefenderTrait : TraitOf<PlayerRole>
     {
         public int Agility { get; set; }
 
-        public int GetDodges(Dice dice)
+        public override int Execute(params TraitOf<PlayerRole>[] traits)
         {
+            var dice = new Dice();
+
             var dodges = 0;
 
             for (int i = 0; i < this.Agility; i++)

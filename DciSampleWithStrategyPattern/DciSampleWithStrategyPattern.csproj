@@ -46,11 +46,11 @@
     <Compile Include="Context\AttackingContext.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Dice.cs" />
-    <Compile Include="Interactions\Roles\AttackerRole.cs" />
-    <Compile Include="Interactions\Traits\AttackerTraits.cs" />
-    <Compile Include="Interactions\Roles\DefenderRole.cs" />
+    <Compile Include="Interactions\Roles\HasTraits.cs" />
+    <Compile Include="Interactions\Traits\AttackerTrait.cs" />
     <Compile Include="Interactions\Roles\PlayerRole.cs" />
-    <Compile Include="Interactions\Traits\DefenderTraits.cs" />
+    <Compile Include="Interactions\Traits\DefenderTrait.cs" />
+    <Compile Include="Interactions\Traits\Trait.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
