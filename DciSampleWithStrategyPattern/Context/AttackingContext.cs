@@ -8,17 +8,25 @@ namespace DciSampleWithStrategyPattern.Context
         private Logger logger;
 
         private AttackerRole attacker;
-        private DefenderRole defender;
 
-        public AttackingContext(AttackerRole attacker, DefenderRole defender, ConsoleColor color)
+        private AttackingContext(ConsoleColor color)
         {
-            this.attacker = attacker;
-            this.defender = defender;
-
             this.logger = new Logger { Color = color };
         }
 
-        public void Attack()
+        public static AttackingContext WithColor(ConsoleColor color)
+        {
+            return new AttackingContext(color);
+        }
+
+        public AttackingContext Attacker(AttackerRole attacker)
+        {
+            this.attacker = attacker;
+
+            return this;
+        }
+
+        public void Attacks(DefenderRole defender)
         {
             if (!attacker.IsDead) // can't attack when you're dead...
             {

@@ -39,22 +39,19 @@ namespace DciSampleWithStrategyPattern
                 Hitpoints = 25
             };
 
-            var attackingContext1 = new AttackingContext(
-                player1 as AttackerRole,
-                player2 as DefenderRole,
-                ConsoleColor.Green);
-            var attackingContext2 = new AttackingContext(
-                player2 as AttackerRole,
-                player1 as DefenderRole,
-                ConsoleColor.Red);
-
             while (!player1.IsDead && !player2.IsDead)
             {
-                attackingContext1.Attack();
+                AttackingContext
+                    .WithColor(ConsoleColor.Green)
+                    .Attacker(player1)
+                    .Attacks(player2);
 
                 Thread.Sleep(TimeSpan.FromSeconds(0.1));
 
-                attackingContext2.Attack();
+                AttackingContext
+                    .WithColor(ConsoleColor.Red)
+                    .Attacker(player2)
+                    .Attacks(player1);
 
                 Thread.Sleep(TimeSpan.FromSeconds(0.5));
             }
