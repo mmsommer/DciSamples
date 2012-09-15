@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DciSampleWithStrategyPattern.Data
 {
-    class Player : PlayerRole, HasRoles
+    class Player : PlayerRole
     {
         private Dictionary<string, TraitOf<PlayerRole>> traits;
 
@@ -23,26 +23,32 @@ namespace DciSampleWithStrategyPattern.Data
             get { return Hitpoints <= 0; }
         }
 
-        public void AddRole(string roleName, TraitOf<PlayerRole> trait)
+        public void AddTrait(TraitOf<PlayerRole> trait)
         {
-            if (!traits.ContainsKey(roleName))
+            var traitName = trait.GetType().Name;
+
+            trait.Role = this;
+
+            if (!traits.ContainsKey(traitName))
             {
-                traits.Add(roleName, trait);
+                traits.Add(traitName, trait);
             }
             else
             {
-                traits[roleName] = trait;
+                traits[traitName] = trait;
             }
         }
 
-        public TraitOf<PlayerRole> AsRole(string roleName)
+        public U Get<U>() where U : TraitOf<PlayerRole>
         {
-            if (!traits.ContainsKey(roleName))
+            var traitName = typeof(U).Name;
+
+            if (!traits.ContainsKey(traitName))
             {
-                throw new ArgumentOutOfRangeException("This object doesn't have a role named '" + roleName + "'");
+                throw new ArgumentOutOfRangeException("This object doesn't have a trait named '" + traitName + "'");
             }
 
-            return traits[roleName];
+            return traits[traitName] as U;
         }
     }
 }

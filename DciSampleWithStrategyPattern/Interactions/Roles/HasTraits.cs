@@ -6,10 +6,10 @@ using System.Text;
 
 namespace DciSampleWithStrategyPattern.Interactions.Roles
 {
-    interface HasRoles
+    interface HasTraits<T> where T : PlayerRole
     {
-        void AddRole(string roleName, TraitOf<PlayerRole> trait);
+        void AddTrait(TraitOf<T> trait);
 
-        TraitOf<PlayerRole> AsRole(string roleName);
+        U Get<U>() where U : TraitOf<T>;
     }
 }

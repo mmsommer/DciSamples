@@ -1,6 +1,6 @@
 ﻿namespace DciSampleWithStrategyPattern.Interactions.Roles
 {
-    interface PlayerRole
+    interface PlayerRole : HasTraits<PlayerRole>
     {
         string Name { get; set; }
 

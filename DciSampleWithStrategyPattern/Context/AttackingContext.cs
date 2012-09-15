@@ -8,7 +8,7 @@ namespace DciSampleWithStrategyPattern.Context
     {
         private Logger logger;
 
-        private TraitOf<PlayerRole> attacker;
+        private AttackerTrait attacker;
 
         private AttackingContext(ConsoleColor color)
         {
@@ -20,14 +20,14 @@ namespace DciSampleWithStrategyPattern.Context
             return new AttackingContext(color);
         }
 
-        public AttackingContext Attacker(TraitOf<PlayerRole> attacker)
+        public AttackingContext Attacker(AttackerTrait attacker)
         {
             this.attacker = attacker;
 
             return this;
         }
 
-        public void Attacks(TraitOf<PlayerRole> defender)
+        public void Attacks(DefenderTrait defender)
         {
             if (!attacker.Role.IsDead) // can't attack when you're dead...
             {

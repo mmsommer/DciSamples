@@ -16,30 +16,30 @@ namespace DciSampleWithStrategyPattern
                 Name = "Player 1",
                 Hitpoints = 20
             };
-            player1.AddRole("Attacker", new AttackerTraits { Power = 4, Role = player1 });
-            player1.AddRole("Defender", new DefenderTraits { Agility = 3, Role = player1 });
+            player1.AddTrait(new AttackerTrait { Power = 8});
+            player1.AddTrait(new DefenderTrait { Agility = 4 });
 
             var player2 = new Player()
             {
                 Name = "Player 2",
                 Hitpoints = 25
             };
-            player2.AddRole("Attacker", new AttackerTraits { Power = 5, Role = player2 });
-            player2.AddRole("Defender", new DefenderTraits { Agility = 1, Role = player2 });
+            player2.AddTrait(new AttackerTrait { Power = 10 });
+            player2.AddTrait(new DefenderTrait { Agility = 2 });
 
             while (!player1.IsDead && !player2.IsDead)
             {
                 AttackingContext
                     .WithColor(ConsoleColor.Green)
-                    .Attacker(player1.AsRole("Attacker"))
-                    .Attacks(player2.AsRole("Defender"));
+                    .Attacker(player1.Get<AttackerTrait>())
+                    .Attacks(player2.Get<DefenderTrait>());
 
                 Thread.Sleep(TimeSpan.FromSeconds(0.1));
 
                 AttackingContext
                     .WithColor(ConsoleColor.Red)
-                    .Attacker(player2.AsRole("Attacker"))
-                    .Attacks(player1.AsRole("Defender"));
+                    .Attacker(player2.Get<AttackerTrait>())
+                    .Attacks(player1.Get<DefenderTrait>());
 
                 Thread.Sleep(TimeSpan.FromSeconds(0.5));
             }

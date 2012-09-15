@@ -2,7 +2,7 @@
 
 namespace DciSampleWithStrategyPattern.Interactions.Traits
 {
-    class DefenderTraits : TraitOf<PlayerRole>
+    class DefenderTrait : TraitOf<PlayerRole>
     {
         public int Agility { get; set; }
 

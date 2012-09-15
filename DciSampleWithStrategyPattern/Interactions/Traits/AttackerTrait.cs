@@ -1,12 +1,13 @@
 ﻿using DciSampleWithStrategyPattern.Interactions.Roles;
+using System;
 
 namespace DciSampleWithStrategyPattern.Interactions.Traits
 {
-    class AttackerTraits : TraitOf<PlayerRole>
+    class AttackerTrait : TraitOf<PlayerRole>
     {
         public int Power { get; set; }
 
-        private int DetermineDamage(DefenderTraits defender)
+        private int DetermineDamage(DefenderTrait defender)
         {
             var dice = new Dice();
 
@@ -38,7 +39,16 @@ namespace DciSampleWithStrategyPattern.Interactions.Traits
 
         public override int Execute(params TraitOf<PlayerRole>[] traits)
         {
-            var defender = traits[0] as DefenderTraits;
+            if (traits.Length != 1)
+            {
+                throw new ArgumentOutOfRangeException("Expected exactly 1 trait, but got " + traits.Length);
+            }
+            else if (!(traits[0] is DefenderTrait))
+            {
+                throw new ArgumentOutOfRangeException("Parameter 0 is not a DefenderTrait");
+            }
+
+            var defender = traits[0] as DefenderTrait;
 
             var damage = DetermineDamage(defender);
 
