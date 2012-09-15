@@ -1,4 +1,5 @@
 ﻿using DciSampleWithStrategyPattern.Interactions.Roles;
+using DciSampleWithStrategyPattern.Interactions.Traits;
 using System;
 
 namespace DciSampleWithStrategyPattern.Context
@@ -7,7 +8,7 @@ namespace DciSampleWithStrategyPattern.Context
     {
         private Logger logger;
 
-        private AttackerRole attacker;
+        private TraitOf<PlayerRole> attacker;
 
         private AttackingContext(ConsoleColor color)
         {
@@ -19,34 +20,34 @@ namespace DciSampleWithStrategyPattern.Context
             return new AttackingContext(color);
         }
 
-        public AttackingContext Attacker(AttackerRole attacker)
+        public AttackingContext Attacker(TraitOf<PlayerRole> attacker)
         {
             this.attacker = attacker;
 
             return this;
         }
 
-        public void Attacks(DefenderRole defender)
+        public void Attacks(TraitOf<PlayerRole> defender)
         {
-            if (!attacker.IsDead) // can't attack when you're dead...
+            if (!attacker.Role.IsDead) // can't attack when you're dead...
             {
-                var damage = this.attacker.AttackerTraits.Attack(defender);
+                var damage = this.attacker.Execute(defender);
 
                 if (damage > 0)
                 {
-                    logger.Log(string.Format("{0} does {1} damage to {2}", attacker.Name, damage, defender.Name));
+                    logger.Log(string.Format("{0} does {1} damage to {2}", attacker.Role.Name, damage, defender.Role.Name));
                 }
                 else
                 {
-                    logger.Log(string.Format("{0} misses {1}!", attacker.Name, defender.Name));
+                    logger.Log(string.Format("{0} misses {1}!", attacker.Role.Name, defender.Role.Name));
                 }
 
-                logger.Log(string.Format("{0} has {1} hitpoints remaining", defender.Name, defender.Hitpoints));
+                logger.Log(string.Format("{0} has {1} hitpoints remaining", defender.Role.Name, defender.Role.Hitpoints));
             }
 
-            if (defender.IsDead)
+            if (defender.Role.IsDead)
             {
-                logger.Log(string.Format("{0} has died!", defender.Name));
+                logger.Log(string.Format("{0} has died!", defender.Role.Name));
             }
         }
     }

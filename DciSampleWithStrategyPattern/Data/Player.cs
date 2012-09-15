@@ -1,17 +1,17 @@
 ﻿using DciSampleWithStrategyPattern.Interactions.Roles;
 using DciSampleWithStrategyPattern.Interactions.Traits;
+using System;
+using System.Collections.Generic;
 
 namespace DciSampleWithStrategyPattern.Data
 {
-    class Player : AttackerRole, DefenderRole
+    class Player : PlayerRole, HasRoles
     {
-        private AttackerTraits attackerTraits;
-        private DefenderTraits defenderTraits;
+        private Dictionary<string, TraitOf<PlayerRole>> traits;
 
-        public Player(AttackerTraits attackerTraits = null, DefenderTraits defenderTraits = null)
+        public Player()
         {
-            AttackerTraits = attackerTraits ?? new AttackerTraits();
-            DefenderTraits = defenderTraits ?? new DefenderTraits();
+            traits = new Dictionary<string, TraitOf<PlayerRole>>();
         }
 
         public string Name { get; set; }
@@ -23,16 +23,26 @@ namespace DciSampleWithStrategyPattern.Data
             get { return Hitpoints <= 0; }
         }
 
-        public AttackerTraits AttackerTraits
+        public void AddRole(string roleName, TraitOf<PlayerRole> trait)
         {
-            get { return attackerTraits; }
-            set { attackerTraits = value; }
+            if (!traits.ContainsKey(roleName))
+            {
+                traits.Add(roleName, trait);
+            }
+            else
+            {
+                traits[roleName] = trait;
+            }
         }
 
-        public DefenderTraits DefenderTraits
+        public TraitOf<PlayerRole> AsRole(string roleName)
         {
-            get { return defenderTraits; }
-            set { defenderTraits = value; }
+            if (!traits.ContainsKey(roleName))
+            {
+                throw new ArgumentOutOfRangeException("This object doesn't have a role named '" + roleName + "'");
+            }
+
+            return traits[roleName];
         }
     }
 }

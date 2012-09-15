@@ -2,26 +2,17 @@
 
 namespace DciSampleWithStrategyPattern.Interactions.Traits
 {
-    class AttackerTraits
+    class AttackerTraits : TraitOf<PlayerRole>
     {
         public int Power { get; set; }
 
-        public int Attack(DefenderRole defender)
+        private int DetermineDamage(DefenderTraits defender)
         {
             var dice = new Dice();
 
-            var damage = DetermineDamage(defender, dice);
-
-            defender.Hitpoints -= damage;
-
-            return damage;
-        }
-
-        private int DetermineDamage(DefenderRole defender, Dice dice)
-        {
             var hits = this.GetHits(dice);
 
-            var dodges = defender.DefenderTraits.GetDodges(dice);
+            var dodges = defender.Execute();
 
             var damage = hits - dodges;
 
@@ -43,6 +34,17 @@ namespace DciSampleWithStrategyPattern.Interactions.Traits
             }
 
             return hits;
+        }
+
+        public override int Execute(params TraitOf<PlayerRole>[] traits)
+        {
+            var defender = traits[0] as DefenderTraits;
+
+            var damage = DetermineDamage(defender);
+
+            defender.Role.Hitpoints -= damage;
+
+            return damage;
         }
     }
 }
