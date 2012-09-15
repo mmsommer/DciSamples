@@ -1,47 +1,51 @@
-﻿using System;
-using DciSampleWithExtensionMethods.Interactions.Roles;
+﻿using DciSampleWithExtensionMethods.Interactions.Roles;
+using DciSampleWithExtensionMethods.Data;
+using System;
 
 namespace DciSampleWithExtensionMethods.Interactions.Traits
 {
     static class AttackerTraits
     {
-        public static int Attack(this AttackerRole attacker, DefenderRole defender)
+        public static int Attack(this AttackerRole attacker)
         {
             var dice = new Dice();
 
-            var damage = DetermineDamage(attacker, defender, dice);
+            var damageDealt = attacker.DetermineDamage();
 
-            defender.Hitpoints -= damage;
+            var damage = attacker.Hits(dice) ? damageDealt : 0;
 
-            return damage;
+            return damage < 0 ? 0 : damage;
         }
 
-        public static int GetHits(this AttackerRole attacker, Dice dice)
+        private static bool Hits(this AttackerRole attacker, Dice dice)
         {
             var hits = 0;
 
-            for (int i = 0; i < attacker.Power; i++)
+            for(int i = 0; i < attacker.Power; i++)
             {
                 var roll = dice.Roll();
 
-                if (roll >= 7)
+                if(roll >= 7)
                 {
                     hits++;
                 }
             }
 
-            return hits;
+            return hits > 0;
         }
 
-        private static int DetermineDamage(AttackerRole attacker, DefenderRole defender, Dice dice)
+        public static int DetermineDamage(this AttackerRole attacker)
         {
-            var hits = attacker.GetHits(dice);
+            var dice = new Dice();
 
-            var dodges = defender.GetDodges(dice);
+            var abilityBonus = attacker.Power - attacker.Weapon.PowerNeeded;
 
-            var damage = hits - dodges;
+            var possibleDamage = attacker.Weapon.DamageBonus + abilityBonus;
+            possibleDamage = possibleDamage <= 0 ? 0 : possibleDamage;
 
-            return damage < 0 ? 0 : damage;
+            var successRate = dice.Roll() / 10.0;
+
+            return (int)Math.Round(possibleDamage * successRate);
         }
     }
 }

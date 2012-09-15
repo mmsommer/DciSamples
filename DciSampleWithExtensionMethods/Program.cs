@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Threading;
 using DciSampleWithExtensionMethods.Context;
 using DciSampleWithExtensionMethods.Data;
 using DciSampleWithExtensionMethods.Interactions.Roles;
-using System.Threading;
 
 namespace DciSampleWithExtensionMethods
 {
@@ -10,38 +10,35 @@ namespace DciSampleWithExtensionMethods
     {
         static void Main(string[] args)
         {
-            PlayerRole player1 = new Player
-            {
+            PlayerRole player1 = new Player {
                 Name = "Player 1",
                 Hitpoints = 20,
                 Power = 4,
-                Agility = 3
+                Agility = 3,
+                Weapon = Weapon.Shortsword
             };
 
-            PlayerRole player2 = new Player
-            {
+            PlayerRole player2 = new Player {
                 Name = "Player 2",
                 Hitpoints = 25,
                 Power = 5,
-                Agility = 1
+                Agility = 1,
+                Weapon = Weapon.Longsword
             };
 
-            var attackingContext1 = new AttackingContext(
-                player1 as AttackerRole,
-                player2 as DefenderRole,
-                ConsoleColor.Green);
-            var attackingContext2 = new AttackingContext(
-                player2 as AttackerRole,
-                player1 as DefenderRole,
-                ConsoleColor.Red);
-
-            while (!player1.IsDead && !player2.IsDead)
+            while(!player1.IsDead && !player2.IsDead)
             {
-                attackingContext1.Attack();
+                AttackingContext
+                    .WithColor(ConsoleColor.Green)
+                    .Attacker(player1 as AttackerRole)
+                    .Attacks(player2 as DefenderRole);
 
                 Thread.Sleep(TimeSpan.FromSeconds(0.1));
 
-                attackingContext2.Attack();
+                AttackingContext
+                    .WithColor(ConsoleColor.Red)
+                    .Attacker(player2 as AttackerRole)
+                    .Attacks(player1 as DefenderRole);
 
                 Thread.Sleep(TimeSpan.FromSeconds(0.5));
             }

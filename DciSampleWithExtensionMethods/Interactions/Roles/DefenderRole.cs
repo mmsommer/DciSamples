@@ -1,6 +1,6 @@
 ﻿namespace DciSampleWithExtensionMethods.Interactions.Roles
 {
-    interface DefenderRole : PlayerRole
+    internal interface DefenderRole : PlayerRole
     {
         int Hitpoints { get; set; }
 

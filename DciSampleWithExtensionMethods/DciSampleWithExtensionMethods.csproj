@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\AttackingContext.cs" />
+    <Compile Include="Data\Weapon.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Dice.cs" />

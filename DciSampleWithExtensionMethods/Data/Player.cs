@@ -1,7 +1,7 @@
-﻿using DciSampleWithExtensionMethods.Interactions.Roles;
-
-namespace DciSampleWithExtensionMethods.Data
+﻿namespace DciSampleWithExtensionMethods.Data
 {
+    using DciSampleWithExtensionMethods.Interactions.Roles;
+
     class Player : AttackerRole, DefenderRole
     {
         public string Name { get; set; }
@@ -11,6 +11,8 @@ namespace DciSampleWithExtensionMethods.Data
         public int Power { get; set; }
 
         public int Agility { get; set; }
+
+        public Weapon Weapon { get; set; }
 
         public bool IsDead
         {
