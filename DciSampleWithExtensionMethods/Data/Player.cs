@@ -12,6 +12,8 @@ namespace DciSampleWithExtensionMethods.Data
 
         public int Agility { get; set; }
 
+        public Weapon Weapon { get; set; }
+
         public bool IsDead
         {
             get { return Hitpoints <= 0; }
