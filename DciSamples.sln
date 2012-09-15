@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DciSampleWithExtensionMethods", "DciSampleWithExtensionMethods\DciSampleWithExtensionMethods.csproj", "{9B96475B-5553-41BF-B279-B22FA0140C39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DciSampleWithStrategyPattern", "DciSampleWithStrategyPattern\DciSampleWithStrategyPattern.csproj", "{C4AF7084-A294-45BB-B2E1-8822B0314BB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DciExampleCSharp", "DciExampleCSharp\DciExampleCSharp.csproj", "{4B43FD0D-3895-428B-9663-13AC49C4879E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B96475B-5553-41BF-B279-B22FA0140C39}.Debug|x86.ActiveCfg = Debug|x86
+		{9B96475B-5553-41BF-B279-B22FA0140C39}.Debug|x86.Build.0 = Debug|x86
+		{9B96475B-5553-41BF-B279-B22FA0140C39}.Release|x86.ActiveCfg = Release|x86
+		{9B96475B-5553-41BF-B279-B22FA0140C39}.Release|x86.Build.0 = Release|x86
+		{C4AF7084-A294-45BB-B2E1-8822B0314BB3}.Debug|x86.ActiveCfg = Debug|x86
+		{C4AF7084-A294-45BB-B2E1-8822B0314BB3}.Debug|x86.Build.0 = Debug|x86
+		{C4AF7084-A294-45BB-B2E1-8822B0314BB3}.Release|x86.ActiveCfg = Release|x86
+		{C4AF7084-A294-45BB-B2E1-8822B0314BB3}.Release|x86.Build.0 = Release|x86
+		{4B43FD0D-3895-428B-9663-13AC49C4879E}.Debug|x86.ActiveCfg = Debug|x86
+		{4B43FD0D-3895-428B-9663-13AC49C4879E}.Debug|x86.Build.0 = Debug|x86
+		{4B43FD0D-3895-428B-9663-13AC49C4879E}.Release|x86.ActiveCfg = Release|x86
+		{4B43FD0D-3895-428B-9663-13AC49C4879E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
